@@ -7,6 +7,8 @@ export class Employee {
   @Prop()
   name: string;
   @Prop()
+  email: string;
+  @Prop()
   department: string;
   @Prop()
   title: string;

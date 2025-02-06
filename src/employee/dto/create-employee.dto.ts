@@ -1,10 +1,13 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateEmployeeDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+  @IsString()
+  @IsNotEmpty()
+  email: string;
   @IsString()
   department: string;
   @IsString()
@@ -14,5 +17,6 @@ export class CreateEmployeeDto {
   @Type(() => Number)
   salary: number;
   @IsString()
+  @IsOptional()
   highestDegree: string;
 }

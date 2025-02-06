@@ -4,24 +4,28 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Employee, EmployeeDocument } from './schemas/employee.schema';
-import { ValidateIdDto } from './dto/validateId.dto';
+import { EmailService } from 'src/email/email.service';
+// import { ValidateIdDto } from './dto/validateId.dto';
 
 @Injectable()
 export class EmployeeService {
   constructor(
-    @InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>
+    @InjectModel(Employee.name) private employeeModel: Model<EmployeeDocument>,
+    private readonly emailService: EmailService
   ) {}
 
   async create(employeeData: CreateEmployeeDto) {
     console.log(employeeData);
     const newEmployee = await this.employeeModel.create({
       name: employeeData.name,
-        department: employeeData.department || "",
-        title: employeeData.title || "",
-        salary: employeeData.salary,
-        highestDegree: employeeData.highestDegree || "",
+      email: employeeData.email,
+      department: employeeData.department || "",
+      title: employeeData.title || "",
+      salary: employeeData.salary,
+      highestDegree: employeeData.highestDegree || "",
 
     });
+    this.emailService.sendEmail(employeeData.email, 'Hello well to employee managment!');
     return newEmployee;
   }
 

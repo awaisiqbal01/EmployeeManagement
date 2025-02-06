@@ -8,6 +8,10 @@ export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
   @IsOptional()
   name: string;
   @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  email: string;
+  @IsString()
   @IsOptional()
   department: string;
   @IsString()

@@ -25,7 +25,7 @@ export class EmployeeService {
       highestDegree: employeeData.highestDegree || "",
 
     });
-    this.emailService.sendEmail(employeeData.email, 'Hello well to employee managment!');
+    await this.emailService.sendEmail(employeeData.email, `Hello, ${employeeData.name} well to employee managment!`);
     return newEmployee;
   }
 

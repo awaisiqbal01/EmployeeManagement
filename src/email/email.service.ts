@@ -9,7 +9,11 @@ import { delay, Queue } from 'bullmq';
 export class EmailService {
     constructor(@InjectQueue('email') private readonly emailQueue: Queue){}
     async sendEmail(email: string, message: string, subject: string = "Wellcome Onboard"){
+        if (!email || !message) {
+            throw new Error('Email and message are required');
+        }
         await this.emailQueue.add('emailQeue', {email, message, subject}, {delay: 3000});
         console.log('=========>> EMAIL ADDED TO QUEUE <<============');
+        return 'email sent'
     }
 }
